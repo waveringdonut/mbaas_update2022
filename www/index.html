@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="keys.js"></script>
     <script>
-    var ncmb = new NCMB(appKey, clientKey);
-    var UTdata = ncmb.DataStore("UpdateTest");
-    var key = "score";
+    let ncmb = new NCMB(appKey, clientKey);
+    let UTdata = ncmb.DataStore("UpdateTest");
+    let key = "score";
     function enterData() {
-      var uTdata = new UTdata();
-      var value = parseInt($("#data").val());
+      let uTdata = new UTdata();
+      let value = parseInt($("#data").val());
       uTdata.set(key, value)
       .save()
       .then(function(results){
@@ -31,8 +31,8 @@
     function fetchAll() {
       UTdata.fetchAll()
       .then(function(results){
-        var msg="";
-        for(var i=0; i<results.length; i++){
+        let msg="";
+        for(let i=0; i<results.length; i++){
           msg += results[i].get(key) + "<br>";
         }
         $("#display").removeClass();
