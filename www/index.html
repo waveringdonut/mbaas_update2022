@@ -69,19 +69,20 @@
         })
     }
 
+    function countData() {
+        UTdata.count().fetchAll()
+        .then(function(results){
+        $("#display").removeClass();
+        $("#display").addClass("bg-success");
+        $("#display").html(results.count);
+        })
+        .catch(function(error){
+        $("#display").removeClass();
+        $("#display").addClass("bg-warning");
+        $("#display").html("count fail:" + JSON.stringify(error));
+        })
+    }
 
-    // function countData() {
-    //     let TestDataClass = ncmb.DataStore(db);
-    //     TestDataClass.count ().fetchAll()
-    //     .then(function(results){
-    //     console.log(results.count);
-    //     .catch(function(error){
-    //             $("#display").removeClass();
-    //             $("#display").addClass("text-light");
-    //             $("#display").addClass("bg-primary");
-    //             console.log("error");
-    //     })
-    // }
 
     function deleteData() {
         UTdata.fetch()
@@ -134,7 +135,7 @@
   <div>
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">Fetch All</a>
     <a onclick="sortData()" class="btn btn-outline-secondary" role="button">Sort</a>
-    <a onclick="countData()" class="btn btn-outline-primary" role="button">Count</a>
+    <a onclick="countData()" class="btn btn-outline-secondary" role="button">Count</a>
     <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
   </div>
   <div>
