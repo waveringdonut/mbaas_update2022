@@ -70,9 +70,18 @@
     }
 
 
-    function countData() {
-      $("#display").html("count does not work");
-    }
+    // function countData() {
+    //     let TestDataClass = ncmb.DataStore(db);
+    //     TestDataClass.count ().fetchAll()
+    //     .then(function(results){
+    //     console.log(results.count);
+    //     .catch(function(error){
+    //             $("#display").removeClass();
+    //             $("#display").addClass("text-light");
+    //             $("#display").addClass("bg-primary");
+    //             console.log("error");
+    //     })
+    // }
 
     function deleteData() {
         UTdata.fetch()
@@ -112,6 +121,7 @@
             $("#display").html("update fail:" + JSON.stringify(error));
         })
     }
+
   </script>
 </head>
 
