@@ -12,12 +12,12 @@
   <script>
     let ncmb = new NCMB(appKey, clientKey);
     let Ldata = ncmb.DataStore("Lectures");
-    let key = "name";
+    let nameF = "name";
 
     function enterData() {
       let ldata = new Ldata();
       let value = $("#data").val();
-      ldata.set(key, value)
+      ldata.set(nameF, value)
         .save()
         .then(function(results) {
           $("#display").removeClass();
@@ -36,7 +36,7 @@
         .then(function(results) {
           let msg = "";
           for (let i = 0; i < results.length; i++) {
-            msg += results[i].get(key) + "<br>";
+            msg += results[i].get(nameF) + "<br>";
           }
           $("#display").removeClass();
           $("#display").addClass("text-light");
@@ -51,11 +51,11 @@
     }
 
     function sortData() {
-        Ldata.order(key, true).fetchAll()
+        Ldata.order(nameF, true).fetchAll()
             .then(function(results){
                 let msg="";
                 for(let i=0; i<results.length; i++){
-                    msg += results[i].get(key) + "<br>";
+                    msg += results[i].get(nameF) + "<br>";
                 }
                 $("#display").removeClass();
                 $("#display").addClass("text-light");
@@ -108,7 +108,7 @@
         Ldata.fetch()
         .then(function(results){
             let value = parseInt($("#update").val());
-            results.set(key, value);
+            results.set(nameF, value);
             return results.update();
         })
         .then(function(results){
