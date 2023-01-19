@@ -13,11 +13,14 @@
     let ncmb = new NCMB(appKey, clientKey);
     let Ldata = ncmb.DataStore("Lectures");
     let nameF = "name";
+    let gradeF = "grade"
 
     function enterData() {
       let ldata = new Ldata();
-      let value = $("#data").val();
+      let value = $("#lecName").val();
+      let value_2 = $("#gradepoint").val();
       ldata.set(nameF, value)
+      ldata.set(gradeF, value_2)
         .save()
         .then(function(results) {
           $("#display").removeClass();
@@ -129,9 +132,11 @@
 <body>
   <h1 class="text-light bg-secondary"><small>GradesManagementSystem</small></h1>
   <div>
-    <input type="text" id="data" placeholder="講義名">
+    <input type="text" id="lecName" placeholder="講義名"><br>
+    <input type="text" id="gradepoint" placeholder="評価(半角で入力)">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
+  <br>
   <div>
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">Fetch All</a>
     <a onclick="sortData()" class="btn btn-outline-secondary" role="button">Sort</a>
