@@ -13,28 +13,50 @@
     let ncmb = new NCMB(appKey, clientKey);
     let Ldata = ncmb.DataStore("Lectures");
     let nameF = "name";
-    let gradeF = "grade"
+    let gradeF = "grade";
+    let gpF = "gradepoint"
 
     function enterData() {
       let ldata = new Ldata();
-      let value = $("#lecName").val();
-      let value_2 = $("#gradepoint").val();
-      ldata.set(nameF, value)
-      ldata.set(gradeF, value_2)
-        .save()
-        .then(function(results) {
+      let value_name = $("#lecName").val();
+      let value_grade = $("#gradepoint").val();
+      let value_gp = 5; 
+      if (value_grade === "s") {
+          value_gp = 4;
+      } else if (value_grade === "a") {
+          value_gp = 3;
+      } else if (value_grade === "b") {
+          value_gp = 2;
+      } else if (value_grade === "c") {
+          value_gp = 1;
+      } else if (value_grade === "d" || value_grade === "e") {
+          value_gp = 0;
+      } else {
           $("#display").removeClass();
-          $("#display").addClass("bg-success");
-          $("#display").html("enter success");
+          $("#display").addClass("bg-warning"); 
+          $("#display").html("評価は半角英字でs, a, b, c, d, eのいずれかを入力してください。");
+          //break;
+      }
+      if(value_gp < 5){
+        ldata.set(nameF, value_name)
+        ldata.set(gradeF, value_grade)
+        ldata.set(gpF, value_gp)
+          .save()
+          .then(function(results) {
+            $("#display").removeClass();
+            $("#display").addClass("bg-success");
+            $("#display").html("入力成功しました。");
+          })
+          .catch(function(results) {
+            $("#display").removeClass();
+            $("#display").addClass("bg-warning");
+            $("#display").html("入力失敗しました。");
         })
-        .catch(function(results) {
-          $("#display").removeClass();
-          $("#display").addClass("bg-warning");
-          $("#display").html("enter fail");
-        })
+      }
     }
 
     function fetchAll() {
+      console.log("s");
       Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
@@ -133,7 +155,7 @@
   <h1 class="text-light bg-secondary"><small>GradesManagementSystem</small></h1>
   <div>
     <input type="text" id="lecName" placeholder="講義名"><br>
-    <input type="text" id="gradepoint" placeholder="評価(半角で入力)">
+    <input type="text" id="gradepoint" placeholder="評価(半角英字で入力)">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
   <br>
