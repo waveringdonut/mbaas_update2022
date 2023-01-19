@@ -11,13 +11,13 @@
   <script src="keys.js"></script>
   <script>
     let ncmb = new NCMB(appKey, clientKey);
-    let UTdata = ncmb.DataStore("UpdateTest");
-    let key = "score";
+    let Ldata = ncmb.DataStore("Lectures");
+    let key = "name";
 
     function enterData() {
-      let uTdata = new UTdata();
-      let value = parseInt($("#data").val());
-      uTdata.set(key, value)
+      let ldata = new Ldata();
+      let value = $("#data").val();
+      ldata.set(key, value)
         .save()
         .then(function(results) {
           $("#display").removeClass();
@@ -32,7 +32,7 @@
     }
 
     function fetchAll() {
-      UTdata.fetchAll()
+      Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
           for (let i = 0; i < results.length; i++) {
@@ -51,7 +51,7 @@
     }
 
     function sortData() {
-        UTdata.order(key, true).fetchAll()
+        Ldata.order(key, true).fetchAll()
             .then(function(results){
                 let msg="";
                 for(let i=0; i<results.length; i++){
@@ -70,7 +70,7 @@
     }
 
     function countData() {
-        UTdata.count().fetchAll()
+        Ldata.count().fetchAll()
         .then(function(results){
         $("#display").removeClass();
         $("#display").addClass("bg-success");
@@ -85,7 +85,7 @@
 
 
     function deleteData() {
-        UTdata.fetch()
+        Ldata.fetch()
             .then(function(results) {
                 return results.delete();
             })
@@ -105,7 +105,7 @@
     }
 
     function updateData() {
-        UTdata.fetch()
+        Ldata.fetch()
         .then(function(results){
             let value = parseInt($("#update").val());
             results.set(key, value);
@@ -127,9 +127,9 @@
 </head>
 
 <body>
-  <h1 class="text-light bg-secondary">mbaas update</h1>
+  <h1 class="text-light bg-secondary"><small>GradesManagementSystem</small></h1>
   <div>
-    <input type="text" id="data" placeholder="スコア">
+    <input type="text" id="data" placeholder="講義名">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
   <div>
