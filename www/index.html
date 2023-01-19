@@ -58,13 +58,19 @@
     }
 
     function fetchAll() {
-      console.log("s");
       Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
+          let gp_sum = 0;
+          let cre_sum = 0;
+          let gpa = 0;
           for (let i = 0; i < results.length; i++) {
+            gp_sum += results[i].get(creditF)*results[i].get(gpF);
+            cre_sum += results[i].get(creditF);
             msg += results[i].get(nameF) + "<br>";
           }
+          gpa = gp_sum / cre_sum;
+          msg += gpa + "<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
