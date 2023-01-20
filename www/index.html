@@ -72,17 +72,10 @@
       Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
-          let gp_sum = 0;
-          let cre_sum = 0;
-          let gpa = 0;
           msg += "評定" + "　" + "科目名 <br>";
           for (let i = 0; i < results.length; i++) {
-            gp_sum += results[i].get(creditF)*results[i].get(gpF);
-            cre_sum += results[i].get(creditF);
             msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
           }
-          gpa = gp_sum / cre_sum;
-          msg += gpa + "<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
@@ -113,6 +106,33 @@
                 $("#display").addClass("bg-warning");
                 $("#display").html("delete fail:" + JSON.stringify(error));
         })
+    }
+
+    function dispData() {
+        Ldata.fetchAll()
+        .then(function(results) {
+          let msg = "";
+          let gp_sum = 0;
+          let cre_sum = 0;
+          let gpa = 0;
+          msg += "あなたのGPAは";
+          for (let i = 0; i < results.length; i++) {
+            gp_sum += results[i].get(creditF)*results[i].get(gpF);
+            cre_sum += results[i].get(creditF);
+          }
+          gpa = gp_sum / cre_sum;
+          msg += Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "です。<br>";
+          $("#display").removeClass();
+          $("#display").addClass("text-light");
+          $("#display").addClass("bg-primary");
+          $("#display").html(msg);
+        })
+        .catch(function(error) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("delete fail:" + JSON.stringify(error));
+        })
+
     }
 
     function countData() {
@@ -184,7 +204,7 @@
   <div>
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">履修済科目</a>
     <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評定順にソート</a>
-    <a onclick="checkData()" class="btn btn-outline-secondary" role="button">成績情報</a><br>
+    <a onclick="dispData()" class="btn btn-outline-secondary" role="button">成績情報</a><br>
     <a onclick="countData()" class="btn btn-outline-secondary" role="button">Count</a>
     <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
   </div>
