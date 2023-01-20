@@ -159,9 +159,8 @@
           }
           gpa = gp_sum / cre_sum;
           msg += "現在のGPAは「" + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "」です。<br>";
-          msg += "現在の合計取得単位数は「" + cre_sum + "」です。<br>";
-          let cre_rem = 124 -cre_sum;
-          msg += "卒業までに必要な単位数は「" + cre_rem + "」です。<br><br>";
+          msg += "現在の合計取得単位数は「" + cre_sum + "」です。<br><br>";
+          
 
           if(48<catArr[1]){
               catArr[5] += catArr[1]-48;
@@ -175,13 +174,22 @@
               catArr[5] += catArr[4]-10;
               catArr[4]=10;
           }
+          if(12<catArr[5]){
+              catArr[5] = 12;
+          }
+          let cre_sum_2 = 0;
           msg += "必修 　" + catArr[0] + "/40単位<br>";
           msg += "選択 　" + catArr[1] + "/48単位<br>";
           msg += "導入 　" + catArr[2] + "/2単位<br>";
           msg += "教養 　" + catArr[3] + "/12単位<br>";
           msg += "外国語 " + catArr[4] + "/10単位<br>";
           msg += "その他 " + catArr[5] + "/12単位<br>";
-          msg += "合計 　" + cre_sum + "/124単位<br>";
+          for(let i = 0; i < catArr.length; i++) {
+              cre_sum_2 += catArr[i];
+          }
+          msg += "合計 　" + cre_sum_2 + "/124単位<br>";
+
+          msg += "<br>卒業までに必要な単位数は「" + (124 - cre_sum_2) + "」です。<br><br>";
 
           $("#display").removeClass();
           $("#display").addClass("text-light");
@@ -193,6 +201,8 @@
           $("#display").addClass("bg-warning");
           $("#display").html("delete fail:" + JSON.stringify(error));
         })
+
+        
 
     }
 
