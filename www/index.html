@@ -23,7 +23,7 @@
       let ldata = new Ldata();
       let value_name = $("#lecName").val();
       let value_grade = $("#gradepoint").val();
-      let value_credit = parseInt($("#lecCredit").val());
+      let value_credit = $("#lecCredit").val();
       let value_cat = $("#cat").val();
       let value_gradeLarge = "";
       let value_gp = 5; 
@@ -58,11 +58,12 @@
           $("#display").addClass("bg-warning"); 
           $("#display").html("評価は半角英字でs, a, b, c, d, eのいずれかを入力してください。");
       }
-      if(value_gp < 5 ){
+      if(value_gp < 5 && value_name !== "" && value_credit !== ""){
         ldata.set(nameF, value_name)
         ldata.set(gradeF, value_grade)
         ldata.set(gpF, value_gp)
-        ldata.set(creditF, value_credit)
+        let tmp = parseInt(value_credit);
+        ldata.set(creditF, tmp)
         ldata.set(gradeLargeF, value_gradeLarge)
         ldata.set(catF, value_cat)
           .save()
@@ -76,6 +77,10 @@
             $("#display").addClass("bg-warning");
             $("#display").html("入力失敗しました。");
         })
+      }else{
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("入力失敗しました。項目に空きが無いか確認してください。");
       }
     }
 
@@ -126,6 +131,7 @@
           let gp_sum = 0;
           let cre_sum = 0;
           let gpa = 0;
+          let catArr = [0, 0, 0, 0, 0, 0];
           for (let i = 0; i < results.length; i++) {
             gp_sum += results[i].get(creditF)*results[i].get(gpF);
             cre_sum += results[i].get(creditF);
@@ -232,7 +238,7 @@
   <div>
     <input type="text" id="lecName" placeholder="講義名"><br>
     <input type="text" id="gradepoint" placeholder="評価(半角英字で入力)"><br>
-    <input type="number" id="lecCredit" placeholder="単位(半角数字で入力)"><br>
+    <input type="text" id="lecCredit" placeholder="単位(半角数字で入力)"><br>
     <input type="text" id="cat" placeholder="授業科目区分">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
