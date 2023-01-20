@@ -72,7 +72,7 @@
       Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
-          msg += "評定" + "　" + "科目名 <br>";
+          msg += "評価" + "　" + "科目名 <br>";
           for (let i = 0; i < results.length; i++) {
             msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
           }
@@ -92,7 +92,7 @@
         Ldata.order(gpF, true).fetchAll()
             .then(function(results){
                 let msg="";
-                msg += "評定" + "　" + "科目名 <br>";
+                msg += "評価" + "　" + "科目名 <br>";
                 for(let i=0; i<results.length; i++){
                     msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
                 }
@@ -203,7 +203,7 @@
   <br>
   <div>
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">履修済科目</a>
-    <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評定順にソート</a>
+    <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評価順にソート</a>
     <a onclick="dispData()" class="btn btn-outline-secondary" role="button">成績情報</a><br>
     <a onclick="countData()" class="btn btn-outline-secondary" role="button">Count</a>
     <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
