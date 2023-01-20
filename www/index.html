@@ -64,10 +64,11 @@
           let gp_sum = 0;
           let cre_sum = 0;
           let gpa = 0;
+          msg += "評定" + "　" + "科目名 <br>";
           for (let i = 0; i < results.length; i++) {
             gp_sum += results[i].get(creditF)*results[i].get(gpF);
             cre_sum += results[i].get(creditF);
-            msg += results[i].get(nameF) + "<br>";
+            msg += "　" + results[i].get(gradeF) + "　　" + results[i].get(nameF) + "<br>";
           }
           gpa = gp_sum / cre_sum;
           msg += gpa + "<br>";
