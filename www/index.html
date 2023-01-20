@@ -122,6 +122,8 @@
           gpa = gp_sum / cre_sum;
           msg += "現在のGPAは「" + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "」です。<br>";
           msg += "現在の合計取得単位数は「" + cre_sum + "」です。<br>";
+          let tmp = 124 -cre_sum;
+          msg += "卒業までに必要な単位数は「" + tmp + "」です。<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
