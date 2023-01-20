@@ -120,7 +120,7 @@
             cre_sum += results[i].get(creditF);
           }
           gpa = gp_sum / cre_sum;
-          msg += "あなたのGPAは " + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + " です。<br>";
+          msg += "現在のGPAは " + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + " です。<br>";
           msg += "現在の合計取得単位数は " + cre_sum + " です。<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
@@ -205,6 +205,7 @@
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">履修済科目</a>
     <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評価順にソート</a>
     <a onclick="dispData()" class="btn btn-outline-secondary" role="button">成績情報</a><br>
+    <a onclick="dispManual()" class="btn btn-outline-secondary" role="button">使い方</a>
     <a onclick="countData()" class="btn btn-outline-secondary" role="button">Count</a>
     <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
   </div>
