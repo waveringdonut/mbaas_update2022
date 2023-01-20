@@ -85,11 +85,12 @@
     }
 
     function sortData() {
-        Ldata.order(nameF, true).fetchAll()
+        Ldata.order(gpF, true).fetchAll()
             .then(function(results){
                 let msg="";
+                msg += "評定" + "　" + "科目名 <br>";
                 for(let i=0; i<results.length; i++){
-                    msg += results[i].get(nameF) + "<br>";
+                    msg += "　" + results[i].get(gradeF) + "　　" + results[i].get(nameF) + "<br>";
                 }
                 $("#display").removeClass();
                 $("#display").addClass("text-light");
