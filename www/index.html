@@ -72,9 +72,9 @@
       Ldata.fetchAll()
         .then(function(results) {
           let msg = "";
-          msg += "評価" + "　" + "科目名 <br>";
+          msg += "評価" + "：" + "科目名 <br>";
           for (let i = 0; i < results.length; i++) {
-            msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
+            msg += "　" + results[i].get(gradeLargeF) + " ： " + results[i].get(nameF) + "<br>";
           }
           $("#display").removeClass();
           $("#display").addClass("text-light");
@@ -92,9 +92,9 @@
         Ldata.order(gpF, true).fetchAll()
             .then(function(results){
                 let msg="";
-                msg += "評価" + "　" + "科目名 <br>";
+                msg += "評価" + "：" + "科目名 <br>";
                 for(let i=0; i<results.length; i++){
-                    msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
+                    msg += "　" + results[i].get(gradeLargeF) + " ： " + results[i].get(nameF) + "<br>";
                 }
                 $("#display").removeClass();
                 $("#display").addClass("text-light");
@@ -120,8 +120,30 @@
             cre_sum += results[i].get(creditF);
           }
           gpa = gp_sum / cre_sum;
-          msg += "現在のGPAは " + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + " です。<br>";
-          msg += "現在の合計取得単位数は " + cre_sum + " です。<br>";
+          msg += "現在のGPAは「" + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "」です。<br>";
+          msg += "現在の合計取得単位数は「" + cre_sum + "」です。<br>";
+          $("#display").removeClass();
+          $("#display").addClass("text-light");
+          $("#display").addClass("bg-primary");
+          $("#display").html(msg);
+        })
+        .catch(function(error) {
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning");
+          $("#display").html("delete fail:" + JSON.stringify(error));
+        })
+
+    }
+
+    function dispManual() {
+        Ldata.fetchAll()
+        .then(function(results) {
+          let msg = "";
+          msg += "◇画面上部の入力欄について<br>";
+          msg += "「講義名」では修得済みの講義の名前を入力、「評価」ではその科目の評価をS～Eまでで入力(大文字小文字どちらでも可)、「単位」ではその科目を習得してもらえる単位数を入力してください。<br><br>";
+          msg += "◇「修得済科目」ボタンでは、入力した修得済みの科目の評価と名前を確認することができます。<br>";
+          msg += "◇「評価順にソート」ボタンでは、評価が高い順に上から表示されるようになります。<br>";
+          msg += "◇「成績情報」ボタンでは、現在のGPAと合計取得単位数が表示されます。<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
@@ -202,7 +224,7 @@
   </div>
   <br>
   <div>
-    <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">履修済科目</a>
+    <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">修得済科目</a>
     <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評価順にソート</a>
     <a onclick="dispData()" class="btn btn-outline-secondary" role="button">成績情報</a><br>
     <a onclick="dispManual()" class="btn btn-outline-secondary" role="button">使い方</a>
