@@ -28,6 +28,7 @@
       let value_gradeLarge = "";
       let value_gp = 5; 
       let cat_flg = 0;
+      let grade_flg = 1;
       if(value_cat==="必修"||value_cat==="選択"||value_cat==="導入"||value_cat==="教養"||value_cat==="外国語"){
         cat_flg = 1;
       }else{
@@ -54,11 +55,12 @@
           value_gp = 0;
           value_gradeLarge = "E";
       } else {
+          grade_flg = 0;
           $("#display").removeClass();
           $("#display").addClass("bg-warning"); 
           $("#display").html("評価は半角英字でs, a, b, c, d, eのいずれかを入力してください。");
       }
-      if(value_gp < 5 && value_name !== "" && value_credit !== ""){
+      if(value_gp < 5 && value_name !== "" && value_credit !== "" && cat_flg === 1){
         ldata.set(nameF, value_name)
         ldata.set(gradeF, value_grade)
         ldata.set(gpF, value_gp)
@@ -77,10 +79,18 @@
             $("#display").addClass("bg-warning");
             $("#display").html("入力失敗しました。");
         })
-      }else{
+      }else {
+          let msg = "入力失敗しました。<br>";
+          if(grade_flg === 0){
+              msg += "評価は半角英字でs, a, b, c, d, eのいずれかを入力してください。<br>";
+          }
+          if(cat_flg === 0){
+              msg += "授業科目区分は必修、選択、導入、教養、外国語のいずれかを入力してください。<br>";
+          }
+          msg += "入力失敗しました。項目に空きが無いか確認してください。<br>";
           $("#display").removeClass();
           $("#display").addClass("bg-warning");
-          $("#display").html("入力失敗しました。項目に空きが無いか確認してください。");
+          $("#display").html(msg);
       }
     }
 
@@ -135,12 +145,44 @@
           for (let i = 0; i < results.length; i++) {
             gp_sum += results[i].get(creditF)*results[i].get(gpF);
             cre_sum += results[i].get(creditF);
+            if(results[i].get(catF)==="必修"){
+                catArr[0] += results[i].get(creditF);
+            }else if(results[i].get(catF)==="選択"){
+                catArr[1] += results[i].get(creditF);
+            }else if(results[i].get(catF)==="導入"){
+                catArr[2] += results[i].get(creditF);
+            }else if(results[i].get(catF)==="教養"){
+                catArr[3] += results[i].get(creditF);
+            }else if(results[i].get(catF)==="外国語"){
+                catArr[4] += results[i].get(creditF);
+            }
           }
           gpa = gp_sum / cre_sum;
           msg += "現在のGPAは「" + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "」です。<br>";
           msg += "現在の合計取得単位数は「" + cre_sum + "」です。<br>";
-          let tmp = 124 -cre_sum;
-          msg += "卒業までに必要な単位数は「" + tmp + "」です。<br>";
+          let cre_rem = 124 -cre_sum;
+          msg += "卒業までに必要な単位数は「" + cre_rem + "」です。<br><br>";
+
+          if(48<catArr[1]){
+              catArr[5] += catArr[1]-48;
+              catArr[1]=48;
+          }
+          if(12<catArr[3]){
+              catArr[5] += catArr[3]-12;
+              catArr[3]=12;
+          }
+          if(10<catArr[4]){
+              catArr[5] += catArr[4]-10;
+              catArr[4]=10;
+          }
+          msg += "必修 　" + catArr[0] + "/40単位<br>";
+          msg += "選択 　" + catArr[1] + "/48単位<br>";
+          msg += "導入 　" + catArr[2] + "/2単位<br>";
+          msg += "教養 　" + catArr[3] + "/12単位<br>";
+          msg += "外国語 " + catArr[4] + "/10単位<br>";
+          msg += "その他 " + catArr[5] + "/12単位<br>";
+          msg += "合計 　" + cre_sum + "/124単位<br>";
+
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
@@ -162,7 +204,7 @@
           msg += "「講義名」では修得済みの講義の名前を入力、「評価」ではその科目の評価をS～Eまでで入力(大文字小文字どちらでも可)、「単位」ではその科目を習得してもらえる単位数を入力してください。<br><br>";
           msg += "◇「修得済科目」ボタンでは、入力した修得済みの科目の評価と名前を確認することができます。<br>";
           msg += "◇「評価順にソート」ボタンでは、評価が高い順に上から表示されるようになります。<br>";
-          msg += "◇「成績情報」ボタンでは、現在のGPAと合計取得単位数が表示されます。<br>";
+          msg += "◇「成績情報」ボタンでは、現在のGPAと合計取得単位数が表示されます。また、授業科目区分別修得単位の状況も確認できます。<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
@@ -239,7 +281,7 @@
     <input type="text" id="lecName" placeholder="講義名"><br>
     <input type="text" id="gradepoint" placeholder="評価(半角英字で入力)"><br>
     <input type="text" id="lecCredit" placeholder="単位(半角数字で入力)"><br>
-    <input type="text" id="cat" placeholder="授業科目区分">
+    <input type="text" id="cat" placeholder="授業科目区分(使い方参照)">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
   <br>
