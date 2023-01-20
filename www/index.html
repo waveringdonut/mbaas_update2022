@@ -17,12 +17,14 @@
     let gpF = "gradepoint";
     let creditF = "numberOfCredits";
     let gradeLargeF = "gradeLarge";
+    let catF = "category";
 
     function enterData() {
       let ldata = new Ldata();
       let value_name = $("#lecName").val();
       let value_grade = $("#gradepoint").val();
       let value_credit = parseInt($("#lecCredit").val());
+      let value_cat = parseInt($("#cat").val());
       let value_gradeLarge = "";
       let value_gp = 5; 
       if (value_grade === "s" || value_grade === "S") {
@@ -221,7 +223,8 @@
   <div>
     <input type="text" id="lecName" placeholder="講義名"><br>
     <input type="text" id="gradepoint" placeholder="評価(半角英字で入力)"><br>
-    <input type="number" id="lecCredit" placeholder="単位(半角数字で入力)">
+    <input type="number" id="lecCredit" placeholder="単位(半角数字で入力)"><br>
+    <input type="text" id="cat" placeholder="授業科目区分">
     <a onclick="enterData()" class="btn btn-outline-secondary" role="button">Enter</a>
   </div>
   <br>
