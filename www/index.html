@@ -24,9 +24,17 @@
       let value_name = $("#lecName").val();
       let value_grade = $("#gradepoint").val();
       let value_credit = parseInt($("#lecCredit").val());
-      let value_cat = parseInt($("#cat").val());
+      let value_cat = $("#cat").val();
       let value_gradeLarge = "";
       let value_gp = 5; 
+      let cat_flg = 0;
+      if(value_cat==="必修"||value_cat==="選択"||value_cat==="導入"||value_cat==="教養"||value_cat==="外国語"){
+        cat_flg = 1;
+      }else{
+          $("#display").removeClass();
+          $("#display").addClass("bg-warning"); 
+          $("#display").html("授業科目区分は必修、選択、導入、教養、外国語のいずれかを入力してください。");
+      }
       if (value_grade === "s" || value_grade === "S") {
           value_gp = 4;
           value_gradeLarge = "S";
@@ -50,12 +58,13 @@
           $("#display").addClass("bg-warning"); 
           $("#display").html("評価は半角英字でs, a, b, c, d, eのいずれかを入力してください。");
       }
-      if(value_gp < 5){
+      if(value_gp < 5 ){
         ldata.set(nameF, value_name)
         ldata.set(gradeF, value_grade)
         ldata.set(gpF, value_gp)
         ldata.set(creditF, value_credit)
         ldata.set(gradeLargeF, value_gradeLarge)
+        ldata.set(catF, value_cat)
           .save()
           .then(function(results) {
             $("#display").removeClass();
