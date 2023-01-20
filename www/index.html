@@ -115,13 +115,13 @@
           let gp_sum = 0;
           let cre_sum = 0;
           let gpa = 0;
-          msg += "あなたのGPAは";
           for (let i = 0; i < results.length; i++) {
             gp_sum += results[i].get(creditF)*results[i].get(gpF);
             cre_sum += results[i].get(creditF);
           }
           gpa = gp_sum / cre_sum;
-          msg += Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + "です。<br>";
+          msg += "あなたのGPAは " + Math.floor( gpa * Math.pow( 10, 3 ) ) / Math.pow( 10, 3 ) + " です。<br>";
+          msg += "現在の合計取得単位数は " + cre_sum + " です。<br>";
           $("#display").removeClass();
           $("#display").addClass("text-light");
           $("#display").addClass("bg-primary");
