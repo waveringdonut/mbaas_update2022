@@ -16,23 +16,33 @@
     let gradeF = "grade";
     let gpF = "gradepoint";
     let creditF = "numberOfCredits";
+    let gradeLargeF = "gradeLarge";
 
     function enterData() {
       let ldata = new Ldata();
       let value_name = $("#lecName").val();
       let value_grade = $("#gradepoint").val();
       let value_credit = parseInt($("#lecCredit").val());
+      let value_gradeLarge = "";
       let value_gp = 5; 
-      if (value_grade === "s") {
+      if (value_grade === "s" || value_grade === "S") {
           value_gp = 4;
-      } else if (value_grade === "a") {
+          value_gradeLarge = "S";
+      } else if (value_grade === "a" || value_grade === "A") {
           value_gp = 3;
-      } else if (value_grade === "b") {
+          value_gradeLarge = "A";
+      } else if (value_grade === "b" || value_grade === "B") {
           value_gp = 2;
-      } else if (value_grade === "c") {
+          value_gradeLarge = "B";
+      } else if (value_grade === "c" || value_grade === "C") {
           value_gp = 1;
-      } else if (value_grade === "d" || value_grade === "e") {
+          value_gradeLarge = "C";
+      } else if (value_grade === "d" || value_grade === "D") {
           value_gp = 0;
+          value_gradeLarge = "D";
+      } else if (value_grade === "e" || value_grade === "E") {
+          value_gp = 0;
+          value_gradeLarge = "E";
       } else {
           $("#display").removeClass();
           $("#display").addClass("bg-warning"); 
@@ -43,6 +53,7 @@
         ldata.set(gradeF, value_grade)
         ldata.set(gpF, value_gp)
         ldata.set(creditF, value_credit)
+        ldata.set(gradeLargeF, value_gradeLarge)
           .save()
           .then(function(results) {
             $("#display").removeClass();
@@ -68,7 +79,7 @@
           for (let i = 0; i < results.length; i++) {
             gp_sum += results[i].get(creditF)*results[i].get(gpF);
             cre_sum += results[i].get(creditF);
-            msg += "　" + results[i].get(gradeF) + "　　" + results[i].get(nameF) + "<br>";
+            msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
           }
           gpa = gp_sum / cre_sum;
           msg += gpa + "<br>";
@@ -90,7 +101,7 @@
                 let msg="";
                 msg += "評定" + "　" + "科目名 <br>";
                 for(let i=0; i<results.length; i++){
-                    msg += "　" + results[i].get(gradeF) + "　　" + results[i].get(nameF) + "<br>";
+                    msg += "　" + results[i].get(gradeLargeF) + "　　" + results[i].get(nameF) + "<br>";
                 }
                 $("#display").removeClass();
                 $("#display").addClass("text-light");
@@ -172,7 +183,7 @@
   <br>
   <div>
     <a onclick="fetchAll()" class="btn btn-outline-secondary" role="buton">履修済科目の確認</a>
-    <a onclick="sortData()" class="btn btn-outline-secondary" role="button">Sort</a>
+    <a onclick="sortData()" class="btn btn-outline-secondary" role="button">評定順にソート</a>
     <a onclick="countData()" class="btn btn-outline-secondary" role="button">Count</a>
     <a onclick="deleteData()" class="btn btn-outline-secondary" role="buton">Delete</a>
   </div>
